@@ -32,11 +32,16 @@ npm run build
 具体怎么弄百度比我清楚
 ```
 
-### 数据使用的是fastmock来模拟~
+### 数据开发环境使用的是fastmock~
 ```
 项目ID：b07d1d1630880597e9844bfed33c61fc
 问就是easymock一天到晚断QAQ
 大佬们的接口和JSON格式可以参考这个假数据噢（这样我就只需要改baseURL了（X
+```
+
+### UI框架~
+```
+万能的饿了么
 ```
 
 ### Customize configuration
