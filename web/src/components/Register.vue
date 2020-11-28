@@ -75,7 +75,7 @@
 
 <script>
 //! mockURL
-var baseURL=" https://www.fastmock.site/mock/b07d1d1630880597e9844bfed33c61fc/SEP";
+// var baseURL=" https://www.fastmock.site/mock/b07d1d1630880597e9844bfed33c61fc/SEP";
 import axios from 'axios';
 export default {
   name: 'app',
@@ -116,7 +116,7 @@ export default {
       
       let that=this;
       // ! mockData
-      const result = axios.post(baseURL+'/addUser',
+      const result = axios.post('/user/register',
           this.$qs.stringify({
         username: that.regForm.username,
         userpassword: that.regForm.password,

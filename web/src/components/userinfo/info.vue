@@ -1,32 +1,46 @@
 <template>
-    <div id="app">
+    <div id="app" v-if="reset">
     <!-- 路由占位符 -->
     <div class="uploadavatar bordercut">
+        <div class="ava">
+        <div class="upic">
+            <el-avatar shape="circle" :size="200" :fit="fit" :src="userInfo.imageUrl"></el-avatar>
+        </div>
         <el-upload
         class="avatar-uploader"
-        action="https://www.mocky.io/v2/5185415ba171ea3a00704eed/posts/"
+        action=""
+        :accept="'image/*'"
         :show-file-list="false"
-        :on-success="handleAvatarSuccess"
-        :before-upload="beforeAvatarUpload">
-            <img v-if="imageUrl" :src="imageUrl" class="avatar">
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        
+        
+        :limit="1"
+        :auto-upload="false"
+        :on-change="handleAvatarChangeIcon"
+		ref="uploadicon"
+        >
+        <!-- :on-progress="handleProgress" -->
+            <!-- <img v-if="userInfo.imageUrl" :src="userInfo.imageUrl" class="avatar"> -->
+            <i  class="el-icon-paizhao avatar-uploader-icon"></i>
         </el-upload>
+        </div>
         <div class="uploadbutton">
-            <el-button plain @click="uploadavatar">上传头像<i class="el-icon-tupian el-icon--right"></i></el-button>
+            <el-button plain @click="uploadavatar">更新照片<i class="el-icon-tupian el-icon--right"></i></el-button>
         </div>
     </div>
 
     <div class="changemsg bordercut">
         <div class="regForm">
-            <el-form :model="regForm" 
+            <el-form :model="userInfo" 
             ref="regFormRef"
             label-width="80px"
             :rules="rules">
                 <!-- 用户名 -->
                 <el-form-item label="姓名">
-                    <el-input :disabled="true"
+                    <!-- :disabled="true" -->
+                    <el-input 
+                    
                     prefix-icon="el-icon-zhanghao"
-                    v-model="regForm.username"
+                    v-model="userInfo.username"
                     clearable></el-input>
                 </el-form-item>
 
@@ -35,13 +49,13 @@
                 <el-form-item label="手机号">
                     <el-input 
                     prefix-icon="el-icon-yuyin"
-                    v-model="regForm.phone" 
+                    v-model="userInfo.phone" 
                     clearable></el-input>
                 </el-form-item>
 
                 <!-- 擅长科目 -->
                 <el-form-item label="擅长科目">
-                    <el-checkbox-group v-model="regForm.type">
+                    <el-checkbox-group v-model="userInfo.type">
                         <el-checkbox label="理科" name="type"></el-checkbox>
                         <el-checkbox label="工科" name="type"></el-checkbox>
                         <el-checkbox label="文科" name="type"></el-checkbox>
@@ -53,7 +67,7 @@
                     type="info"
                     effect="dark"
                     :key="tag"
-                    v-for="tag in dynamicTags"
+                    v-for="tag in userInfo.dynamicTags"
                     closable
                     :disable-transitions="false"
                     @close="handleClose(tag)">
@@ -81,7 +95,7 @@
 
     <div class="myrole bordercut">
         <span>我的身份：</span>
-        <strong class="grey">{{role}}</strong>
+        <strong class="grey">{{userInfo.role}}</strong>
         <br>
         <el-link 
         href="/identity"
@@ -99,54 +113,92 @@ import axios from'axios'
 export default {
     data(){
         return{
-            role:'学生',
-            imageUrl:'',
-            regForm: {
-                username: 'admin',
-                phone: '12345678910',
-                type: ['理科'],
-            },
-            dynamicTags: ['需要老师', '大三', '慢热'],
+            fit:'cover',
+            fileraw:'',
+            userInfo:{},
             inputVisible: false,
             inputValue: '',
             rules: {
-                username: [
-                    { required: true, message: '请输入用户名', trigger: 'blur' },
-                    { min: 2, max: 4, message: '长度在 2 到 4 个字符', trigger: 'blur' }
-                ],
-                password: [
-                    { required: true, message: '请输入密码', trigger: 'blur' },
-                    { min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur' }
-                ],
                 phone: [
                     { required: true, message: '请输入邮箱', trigger: 'blur' },
                     { min: 11, max: 11, message: '长度为11位手机号', trigger: 'blur' }
                 ]
-            }
+            },
+            reset:false
         }
     },
     methods:{
-        handleAvatarSuccess(res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw);
-        console.log(this.imageUrl);
-        //TODO 上传成功的钩子
-        },
-        beforeAvatarUpload(file) {
-            const isJPG = file.type === 'image/jpeg';
-            const isLt2M = file.size / 1024 / 1024 < 2;
-
-            if (!isJPG) {
-                this.$message.error('上传头像图片只能是 JPG 格式!');
+        handleAvatarChangeIcon(file,fileList){
+            const isJPG = file.raw.type === 'image/jpeg'
+            const isPNG = file.raw.type === 'image/png'
+            const isLt2M = file.raw.size / 1024 / 1024 < 0.5
+            this.hideUploadIcon = fileList.length >= 1;
+            if (!isPNG && !isJPG) {
+                this.$message.error('上传图片只能是 JPG/PNG 格式!')
+                return false
+            } else if (!isLt2M) {
+                this.$message.error('上传图片大小不能超过 200kb!')
+                return false
+            } else if (isLt2M && (isPNG || isJPG)) {
+                this.userInfo.imageUrl = URL.createObjectURL(file.raw);
+                this.fileraw=file.raw//图片的url
             }
-            if (!isLt2M) {
-                this.$message.error('上传头像图片大小不能超过 2MB!');
-            }
-            return isJPG && isLt2M;
         },
+        
+        // TODO
+        //handleProgress(event, file, fileList) {
+        //    this.loading = true;  //  上传时执行loading事件
+        //},
 
         uploadavatar(){
-            console.log(this.imageUrl);
+            if(!this.fileraw) {
+                this.$message({
+                            showClose: true,
+                            message: '不能为空',
+                            center: true,
+                            type: 'error'
+                        })
+            }
+            let formData = new FormData();
+
+            // 把文件信息添加进如对象
+            formData.append('url', this.fileraw)
+
+            let config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'token':this.$store.state.token
+                }
+            }
+            let that=this;
+            // let postData = this.$qs.stringify({
+            //     imageUrl:this.userInfo.imageUrl
+            // });
+            const result = axios.post('/user/updateAvatar',formData,config)
+                .then(function (resp) {
+                    // let { avatarUrl } = resp.data.imageUrl;
+                    // console.log(resp.data.imageUrl);
+                    // this.imageUrl= resp.data.imageUrl;
+                    console.log(resp.data)
+                    if (resp.data.success) {
+                        that.$message({
+                            showClose: true,
+                            message: '上传成功',
+                            center: true,
+                            type: 'success'
+            
+                        })}
+                    else{
+                        that.$message({
+                            showClose: true,
+                            message: '上传失败',
+                            center: true,
+                            type: 'error'
+                        })
+                    }
+                })
         },
+
 
         onSubmit() {
             console.log(this.dynamicTags);
@@ -156,16 +208,23 @@ export default {
             if(!valid) return;
         
             let that=this;
-            const result = axios.post('http://localhost:8888/addUser',
-                this.$qs.stringify({
-                    username: that.regForm.username,
-                    userpassword: that.regForm.password,
-                    phone: that.regForm.phone,
-                    type: that.regForm.type,
-                    tag: that.dynamicTags,
-                })).then(function (resp) {
+            let postData = this.$qs.stringify({
+                username: that.userInfo.username,
+                phone: that.userInfo.phone,
+                type: that.userInfo.type,
+                dynamicTags: that.userInfo.dynamicTags,
+            });
+            const result = axios({
+                method: 'post',
+                url: '/user/updateInfo',
+                
+                data:postData,
+                headers: {
+                    "token":this.$store.state.token
+                },
+            }).then(function (resp) {
                     console.log(resp.data)
-                    if (resp.data) {
+                    if (resp.data.success) {
                         that.$message({
                             showClose: true,
                             message: '保存成功',
@@ -204,10 +263,67 @@ export default {
             this.inputVisible = false;
             this.inputValue = '';
             console.log(this.dynamicTags);
+        },
+
+
+        userInfoAjax(){
+            // this.teacherId=this.$route.params.teacherId
+            // console.log(this.teacherId);
+            console.log(this.$store.state.token);
+            let that=this;
+            const result = axios.get('/user/infoAjax',{
+                
+                params:{
+                    userId:that.$store.state.userId
+                },
+                headers: {
+                    token:that.$store.state.token
+                },
+                }).then((resp)=>{
+                    if(resp.data.userState) {
+                    that.userInfo=resp.data;
+                    }
+                    else {
+                    this.$messagebox.confirm('可能您从未登录或登录状态失效', '您需要在登录状态才可获得联系方式', {
+                        confirmButtonText: '前往重新登陆',
+                        cancelButtonText: '放弃登录',
+                        type: 'warning'
+                    }).then(() => {
+                        this.$router.push('/login')
+                    }).catch(() => {
+                        this.$message({
+                            type: 'warning',
+                            message: '已放弃登录！游客模式只能进行浏览哦'
+                        });
+                        this.$router.push('/homepage')
+                    });
+                    }
+                    // console.log(resp.data);
+                    // this.$set(this.$data,'tabledata',resp.data);
+                }).catch((resp)=>{
+                    console.log(resp.data.message);
+                })
+        },
+        
+    },
+
+    beforeMount(){
+        this.userInfoAjax();
+    },
+    mounted() {
+
+    },
+    watch: {
+        userInfo: function(){
+            this.$nextTick(function(){
+                this.reset = true;
+                console.log(this.reset);
+            })
         }
-
-
     }
+
+
+    
     
 }
 </script>
@@ -222,10 +338,20 @@ export default {
     width: 660px;
     height: 250px;
     padding: 20px;
+    
     /* text-align: center; */
     
     /* margin: 0 10px; */
     /* padding-top: 10px; */
+}
+.ava {
+    display: flex;
+}
+.upic {
+    flex:1
+}
+.avatar-uploader {
+    flex:1
 }
 .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;

@@ -23,7 +23,7 @@
 <script>
 import axios from 'axios';
 //! mockURL
-var baseURL="https://www.fastmock.site/mock/b07d1d1630880597e9844bfed33c61fc/SEP";
+// var baseURL="https://www.fastmock.site/mock/b07d1d1630880597e9844bfed33c61fc/SEP";
 
 export default {
     name: "keySearch",
@@ -58,11 +58,11 @@ export default {
             if(query !== '') {
                 this.loading = true;
                 let postData = this.$qs.stringify({                
-                    class_major:query                
+                    tag:query                
                 });            
                 const result =axios({           
                     method: 'post',            
-                    url:baseURL+'/keySearchTeacher',            
+                    url:'/teacher/getKey',            
                     data:postData            
                 }).then((res)=>{                
                 if(res.data!='error')                    

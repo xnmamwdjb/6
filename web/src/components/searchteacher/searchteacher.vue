@@ -57,7 +57,7 @@
 <script>
 import axios from 'axios';
 //! mockURL
-var baseURL="https://www.fastmock.site/mock/b07d1d1630880597e9844bfed33c61fc/SEP";
+// var baseURL="https://www.fastmock.site/mock/b07d1d1630880597e9844bfed33c61fc/SEP";
 
 import domainSearch from '@/components/searchteacher/domainSearch'
 import keySearch from '@/components/searchteacher/keySearch';
@@ -85,15 +85,30 @@ export default {
         refresh(){
             this.reload()
         },
+        add(item) {
+            console.log(item.teacherId);
+            this.$router.push({  
+            // path: 'yourPath',   
+            name: 'teacherDetail',  
+            params: {   
+                teacherId:item.teacherId 
+            }  
+            /*query: {  
+                key: 'key',   
+                msgKey: this.msg  
+            }*/  
+        })  
+        },
         allAjax(){
             let that = this;
-            const result = axios.get(baseURL+'/selectAllTeacher',{
-                params:{
-                    userid:that.$store.state.userInfo
-                }
+            const result = axios.get('/teacher/selectAllTeacher',{
+                //params:{
+                //    userid:that.$store.state.userInfo
+                //}
                 }).then((resp)=>{
                     that.listdata=resp.data;
                     this.$set(this.$data,'tabledata',resp.data);
+                    console.log(resp);
                 }).catch((resp)=>{
                     console.log(resp);
                 })
@@ -117,7 +132,7 @@ export default {
             });
             const result = axios({
                 method: 'post',
-                url: baseURL+'/selectByTag',
+                url: '/teacher/selectByTag',
                 data:postData
             }).then((resp) => {
                 if(resp)
@@ -132,7 +147,7 @@ export default {
             });
             const result = axios({
                 method: 'post',
-                url: baseURL+'/selectByDomain',
+                url: '/teacher/selectByDomain',
                 data:postData
             }).then((resp) => {
                 if(resp)
@@ -141,7 +156,7 @@ export default {
         },
 
 
-
+        //^ Tag和领域查询
         tagdomainAjax(){
             let postData = this.$qs.stringify({
                 tag:this.tag,
@@ -149,7 +164,7 @@ export default {
             });
             const result = axios({
                 method: 'post',
-                url: baseURL+'/selectBytagdomain',
+                url: '/teacher/selectBytagdomain',
                 data:postData
             }).then((resp) => {
                 if(resp)
@@ -255,6 +270,6 @@ margin-bottom: 10px;
 }
 .image {
     width: 100%;
-    height: 330px;
+    height: 200px;
 }
 </style>

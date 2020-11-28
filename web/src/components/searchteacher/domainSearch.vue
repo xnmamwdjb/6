@@ -22,7 +22,7 @@
 <script>
 import axios from 'axios';
 //! mockURL
-var baseURL="https://www.fastmock.site/mock/b07d1d1630880597e9844bfed33c61fc/SEP";
+// var baseURL="https://www.fastmock.site/mock/b07d1d1630880597e9844bfed33c61fc/SEP";
 
 export default {
     name: "domainSearch",
@@ -30,19 +30,19 @@ export default {
         return {
             options: [{
                 value: '选修1',
-                label: '黄金糕'
+                label: '数学学院'
             }, {
                 value: '选项2',
-                label: '双皮奶'
+                label: '英语学院'
             }, {
                 value: '选项3',
-                label: '蚵仔煎'
+                label: '信息学院'
             }, {
                 value: '选项4',
-                label: '龙须面'
+                label: '社会学院'
             }, {
                 value: '选项5',
-                label: '北京烤鸭'
+                label: '艺术学院'
             }],
             domainValue: '' 
         }

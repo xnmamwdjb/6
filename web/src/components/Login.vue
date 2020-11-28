@@ -51,7 +51,7 @@
 <script>
 import axios from 'axios';
 //! mockURL
-var baseURL="https://www.fastmock.site/mock/b07d1d1630880597e9844bfed33c61fc/SEP";
+// var baseURL="https://www.fastmock.site/mock/b07d1d1630880597e9844bfed33c61fc/SEP";
 export default {
     data() {
         return {
@@ -82,12 +82,12 @@ export default {
             this.$refs.loginFormRef.validate((valid)=>{
             if(!valid) return;
             let that=this;
-            const result = axios.post(baseURL+'/queryUserByName',
+            const result = axios.post('/user/login',
                 this.$qs.stringify({
                     phone:that.loginForm.phone,
                     userpassword:that.loginForm.password
                 })).then(function(resp){
-                    console.log(resp.data)
+                    console.log(resp)
                     if(resp.data.userState) {
                 //console.log(that.loginForm.username)
                     that.$message({
@@ -97,10 +97,11 @@ export default {
                     type: 'success'
                     });
                     // window.sessionStorage.setItem('token',"testtoken");
-                    window.sessionStorage.setItem('token',resp.data.token);
-                    window.sessionStorage.setItem('currentUser',resp.data.userId);
+                    // window.localStorage.setItem('token',resp.data.token);
+                    // window.localStorage.setItem('currentUser',resp.data.userId);
                     // that.$store.state.token=resp.data.token;
                     // that.$store.state.currentUser=resp.data.userId;
+                    that.$store.commit("setToken",resp.data.token);
                     that.$store.commit("setuserInfo",resp.data.userId);
                     that.$router.push('/homepage')
                 }

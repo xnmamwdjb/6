@@ -36,11 +36,13 @@
 <script>
 
 export default {
-    methods: {
-        goBack() {
-            this.$router.push('/Homepage')
+    data() {
+        return {
+            
+            // userInfo:{}
         }
-    }
+    },
+
 }
 </script>
 

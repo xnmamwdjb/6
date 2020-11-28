@@ -112,7 +112,7 @@ export default {
                     // name:"/info",
                     path:"/info",
                     query: {
-                        id:"testid"
+                        id:this.$store.state.userId
                     }
                 });
                 window.open(routeinfo.href, '_blank');
@@ -122,7 +122,7 @@ export default {
                     // name:"/info",
                     path:"/wallet",
                     query: {
-                        id:"testid"
+                        id:this.$store.state.userId
                     }
                 });
                 window.open(routewallet.href, '_blank');
@@ -132,7 +132,7 @@ export default {
                     // name:"/info",
                     path:"/order",
                     query: {
-                        id:"testid"
+                        id:this.$store.state.userId
                     }
                 });
                 window.open(routeorder.href, '_blank');
@@ -142,7 +142,7 @@ export default {
                     // name:"/info",
                     path:"/reply",
                     query: {
-                        id:"testid"
+                        id:this.$store.state.userId
                     }
                 });
                 window.open(routereply.href, '_blank');
@@ -152,7 +152,7 @@ export default {
                     // name:"/info",
                     path:"/sysmsg",
                     query: {
-                        id:"testid"
+                        id:this.$store.state.userId
                     }
                 });
                 window.open(routesysmsg.href, '_blank');
@@ -161,21 +161,24 @@ export default {
         return true
         },
         changeisshow() {
-            const tokenstr=window.sessionStorage.getItem('token');
+            // const tokenstr=window.sessionStorage.getItem('token');
             const vuexUser=this.$store.state.userInfo;
-            const userstr=window.sessionStorage.getItem('currentUser');
+            const vuexToken=this.$store.state.token;
+            // const userstr=window.sessionStorage.getItem('currentUser');
             // const tokenstr="testtoken"
-            if(tokenstr){
+            if(vuexToken){
                 this.isshow=false;
-                console.log(tokenstr);
+                // console.log(tokenstr);
                 console.log(vuexUser);
-                console.log(userstr);
+                console.log(vuexToken);
+                // console.log(userstr);
             }
             else{
                 this.isshow=true;
-                console.log(tokenstr);
+                // console.log(tokenstr);
                 console.log(vuexUser);
-                console.log(userstr);
+                console.log(vuexToken);
+                // console.log(userstr);
             }
         },
         handleSelect(key, keyPath) {
@@ -191,6 +194,7 @@ export default {
         logout(){
             window.sessionStorage.clear();
             this.$store.commit('setuserInfo','');
+            this.$store.commit('setToken','');
             this.reload()
             // this.changeisshow();
             // this.$router.push('/homepage')

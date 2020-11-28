@@ -12,6 +12,7 @@ import info from '@/components/userinfo/info'
 import wallet from '@/components/userinfo/wallet'
 import order from '@/components/userinfo/order'
 import identity from '@/components/userinfo/identity'
+import teacherDetail from '@/components/teacherPair/teacherDetail'
 
 Vue.use(VueRouter)
 
@@ -25,7 +26,9 @@ const routes = [
   children:[
     {path:'/searchquiz', component: searchquiz},
     {path:'/searchteacher', component: searchteacher},
+    {path:'/teacherDetail/:teacherId', component: teacherDetail, name: 'teacherDetail'},
     {path:'/aboutus', component: aboutus},
+    
     {path:'/userinfo', 
     component: userinfo,
     redirect:'/info',
@@ -35,6 +38,8 @@ const routes = [
       {path:'/order', component: order},
     ]
     },
+
+    
   
   ] 
   },

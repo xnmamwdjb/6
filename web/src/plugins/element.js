@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { Button, Form, FormItem, Input, Message, Container, Header, Aside,Main, Footer,Menu ,MenuItem,MenuItemGroup,Submenu,Carousel,CarouselItem,PageHeader,link,Backtop,Row,Col,Card,Checkbox,CheckboxGroup,Avatar,Dropdown,DropdownMenu,DropdownItem,Badge,Upload,tag,Select,Option} from 'element-ui'
+import { Button, Form, FormItem, Input, Message, Container, Header, Aside,Main, Footer,Menu ,MenuItem,MenuItemGroup,Submenu,Carousel,CarouselItem,PageHeader,link,Backtop,Row,Col,Card,Checkbox,CheckboxGroup,Avatar,Dropdown,DropdownMenu,DropdownItem,Badge,Upload,tag,Select,Option,Divider,MessageBox,} from 'element-ui'
 
 
 Vue.use(Button)
@@ -34,4 +34,6 @@ Vue.use(Upload)
 Vue.use(tag)
 Vue.use(Select)
 Vue.use(Option)
+Vue.use(Divider)
+Vue.prototype.$messagebox = MessageBox
 Vue.prototype.$message = Message
