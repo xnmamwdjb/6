@@ -85,7 +85,7 @@ export default {
             const result = axios.post('/user/login',
                 this.$qs.stringify({
                     phone:that.loginForm.phone,
-                    userpassword:that.loginForm.password
+                    userPassword:that.loginForm.password
                 })).then(function(resp){
                     console.log(resp)
                     if(resp.data.userState) {

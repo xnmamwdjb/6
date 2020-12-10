@@ -36,7 +36,7 @@ const routes = [
       {path:'/info', component: info},
       {path:'/wallet', component: wallet},
       {path:'/order', component: order},
-      {path:'/identity', component: identity },
+      
     ]
     },
 
@@ -44,6 +44,7 @@ const routes = [
   
   ] 
   },
+  {path:'/identity', component: identity },
   
 ]
 

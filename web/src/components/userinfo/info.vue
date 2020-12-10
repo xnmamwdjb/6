@@ -97,12 +97,7 @@
         <span>我的身份：</span>
         <strong class="grey">{{userInfo.role}}</strong>
         <br>
-        <el-link 
-        href="/src/components/userinfo/identity.vue"
-        type="warning"
-        icon="el-icon-biaoqian"
-        :underline="false"
-        >审核成为老师</el-link>
+        <el-button type="warning" icon="el-icon-biaoqian" @click="turnToInd">审核成为老师</el-button> 
     </div>
 
     </div>
@@ -145,6 +140,16 @@ export default {
             }
         },
         
+        turnToInd() {
+            const routeinfo = this.$router.resolve({
+                    // name:"/info",
+                    path:"/identity",
+                    query: {
+                        id:this.$store.state.userId
+                    }
+                });
+                window.open(routeinfo.href, '_blank');
+        },
         // TODO
         //handleProgress(event, file, fileList) {
         //    this.loading = true;  //  上传时执行loading事件

@@ -51,14 +51,13 @@
                     </el-form-item>
 
                     <!-- 擅长科目 -->
-                    <el-form-item label="擅长科目">
-                      <el-checkbox-group v-model="regForm.type">
-                        <el-checkbox label="理科" name="type"></el-checkbox>
-                        <el-checkbox label="工科" name="type"></el-checkbox>
-                        <el-checkbox label="文科" name="type"></el-checkbox>
-                        <!-- <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox> -->
-                      </el-checkbox-group>
-                    </el-form-item>
+                    <!-- <el-form-item label="擅长科目"> -->
+                      <!-- <el-checkbox-group v-model="regForm.type"> -->
+                        <!-- <el-checkbox label="理科" name="type"></el-checkbox> -->
+                        <!-- <el-checkbox label="工科" name="type"></el-checkbox> -->
+                        <!-- <el-checkbox label="文科" name="type"></el-checkbox> -->
+                      <!-- </el-checkbox-group> -->
+                    <!-- </el-form-item> -->
 
                     <!-- 提交按钮 -->
                     <el-form-item class="btns">
@@ -85,7 +84,6 @@ export default {
         username: 'adm',
         password: '233',
         phone: '15901700373',
-        type: ["理科"],
       },
       rules: {
         username: [
@@ -118,10 +116,9 @@ export default {
       // ! mockData
       const result = axios.post('/user/register',
           this.$qs.stringify({
-        username: that.regForm.username,
-        userpassword: that.regForm.password,
+        userName: that.regForm.username,
+        userPassword: that.regForm.password,
         phone: that.regForm.phone,
-        type: that.regForm.type
       })).then(function (resp) {
         console.log(resp.data);
         
