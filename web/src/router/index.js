@@ -22,7 +22,7 @@ const routes = [
   {path:'/Register', component: Register },
   {path:'/Homepage', 
   component: Homepage, 
-  redirect:'/searchquiz',
+  redirect:'/searchteacher',
   children:[
     {path:'/searchquiz', component: searchquiz},
     {path:'/searchteacher', component: searchteacher},
@@ -36,6 +36,7 @@ const routes = [
       {path:'/info', component: info},
       {path:'/wallet', component: wallet},
       {path:'/order', component: order},
+      {path:'/identity', component: identity },
     ]
     },
 
@@ -43,7 +44,7 @@ const routes = [
   
   ] 
   },
-  {path:'/identity', component: identity },
+  
 ]
 
 const router = new VueRouter({

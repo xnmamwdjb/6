@@ -16,9 +16,9 @@
             router>
 
             <!-- <img class="logo" src="../assets/pic/login/avatar.jpg" alt=""> -->
-            <el-menu-item index="/searchquiz"><i class="el-icon-ziyuan"></i>首页</el-menu-item>
+            <!-- <el-menu-item index="/searchquiz"><i class="el-icon-ziyuan"></i>首页</el-menu-item> -->
             <el-menu-item index="/searchteacher"><i class="el-icon-sousuo"></i>找老师</el-menu-item>
-            <el-menu-item index="/aboutus" ><i class="el-icon-guanzhu"></i>关于我们</el-menu-item>
+            <!-- <el-menu-item index="/aboutus" ><i class="el-icon-guanzhu"></i>关于我们</el-menu-item> -->
 
 
             <el-dropdown class="bt" v-if="isshow">

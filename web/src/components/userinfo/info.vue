@@ -98,7 +98,7 @@
         <strong class="grey">{{userInfo.role}}</strong>
         <br>
         <el-link 
-        href="/identity"
+        href="/src/components/userinfo/identity.vue"
         type="warning"
         icon="el-icon-biaoqian"
         :underline="false"
