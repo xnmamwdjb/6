@@ -277,15 +277,18 @@ export default {
             // console.log(this.teacherId);
             console.log(this.$store.state.token);
             let that=this;
-            const result = axios.post('/user/infoAjax',this.$qs.stringify({
+            let postdata=this.$qs.stringify({
+                userId:that.$store.state.userId
+            })
+            const result = axios({
+                method: 'post',
+                url: '/user/infoAjax',
                 
-                
-                    userId:that.$store.state.userId
-                }),
-                {
-                    token:that.$store.state.token
+                data:postData,
+                headers: {
+                    "token":this.$store.state.token
                 },
-                ).then((resp)=>{
+            }).then((resp)=>{
                     if(resp.data.userState) {
                     that.userInfo=resp.data;
                     }
