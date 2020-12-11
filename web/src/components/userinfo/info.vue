@@ -40,7 +40,7 @@
                     <el-input 
                     
                     prefix-icon="el-icon-zhanghao"
-                    v-model="userInfo.username"
+                    v-model="userInfo.userName"
                     clearable></el-input>
                 </el-form-item>
 
@@ -54,7 +54,7 @@
                 </el-form-item>
 
                 <!-- 擅长科目 -->
-                <el-form-item label="擅长科目">
+                <el-form-item label="擅长科目" v-if="userInfo.role">
                     <el-checkbox-group v-model="userInfo.type">
                         <el-checkbox label="理科" name="type"></el-checkbox>
                         <el-checkbox label="工科" name="type"></el-checkbox>
@@ -95,7 +95,8 @@
 
     <div class="myrole bordercut">
         <span>我的身份：</span>
-        <strong class="grey">{{userInfo.role}}</strong>
+        <strong class="grey" v-if="!userInfo.role">学生</strong>
+        <strong class="grey" v-if="userInfo.role">老师</strong>
         <br>
         <el-button type="warning" icon="el-icon-biaoqian" @click="turnToInd">审核成为老师</el-button> 
     </div>
@@ -214,7 +215,7 @@ export default {
         
             let that=this;
             let postData = this.$qs.stringify({
-                username: that.userInfo.username,
+                userName: that.userInfo.username,
                 phone: that.userInfo.phone,
                 type: that.userInfo.type,
                 dynamicTags: that.userInfo.dynamicTags,
