@@ -98,7 +98,7 @@
         <strong class="grey" v-if="!userInfo.role">学生</strong>
         <strong class="grey" v-if="userInfo.role">老师</strong>
         <br>
-        <el-button type="warning" icon="el-icon-biaoqian" @click="turnToInd">审核成为老师</el-button> 
+        <el-button type="warning" icon="el-icon-biaoqian" @click="turnToInd" v-if="!userInfo">审核成为老师</el-button> 
     </div>
 
     </div>
@@ -215,7 +215,7 @@ export default {
         
             let that=this;
             let postData = this.$qs.stringify({
-                userName: that.userInfo.username,
+                userName: that.userInfo.userName,
                 phone: that.userInfo.phone,
                 type: that.userInfo.type,
                 dynamicTags: that.userInfo.dynamicTags,
