@@ -49,6 +49,7 @@ export default {
     methods: {
         
         onPay() {
+            let that =this;
             console.log(this.teacherId);
             console.log(this.$store.state.token);
             let user =  this.$qs.stringify({
@@ -65,7 +66,7 @@ export default {
                 url: '/global/getUserState',
                 data: user,
                 headers: {
-                    "token":this.$store.state.token
+                    "token":that.$store.state.token
                 },
             }).then((resp) => {
                 if(resp.data.userState) {
@@ -80,7 +81,7 @@ export default {
                             url:'/teacher/getPhone',
                             data:postData,
                             headers: {
-                                "token":this.$store.state.token
+                                "token":that.$store.state.token
                             }
                         })
                         if(resp.data.payState) {

@@ -157,6 +157,7 @@ export default {
         //},
 
         uploadavatar(){
+            
             if(!this.fileraw) {
                 this.$message({
                             showClose: true,
@@ -207,6 +208,7 @@ export default {
 
 
         onSubmit() {
+            
             console.log(this.dynamicTags);
             console.log(this.regForm.phone);
             console.log(this.regForm.type);
@@ -226,7 +228,7 @@ export default {
                 
                 data:postData,
                 headers: {
-                    "token":this.$store.state.token
+                    "token":that.$store.state.token
                 },
             }).then(function (resp) {
                     console.log(resp.data)
@@ -277,7 +279,7 @@ export default {
             // console.log(this.teacherId);
             console.log(this.$store.state.token);
             let that=this;
-            let postdata=this.$qs.stringify({
+            let postData=this.$qs.stringify({
                 userId:that.$store.state.userId
             })
             const result = axios({
@@ -286,7 +288,7 @@ export default {
                 
                 data:postData,
                 headers: {
-                    "token":this.$store.state.token
+                    "token":that.$store.state.token
                 },
             }).then((resp)=>{
                     if(resp.data.userState) {
