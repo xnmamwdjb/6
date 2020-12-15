@@ -157,7 +157,6 @@ export default {
         //},
 
         uploadavatar(){
-            
             if(!this.fileraw) {
                 this.$message({
                             showClose: true,
@@ -208,14 +207,14 @@ export default {
 
 
         onSubmit() {
-            
-            console.log(this.dynamicTags);
-            console.log(this.regForm.phone);
-            console.log(this.regForm.type);
+            // console.log(this.dynamicTags);
+            console.log(this.userInfo.phone);
+            // console.log(this.regForm.type);
             this.$refs.regFormRef.validate((valid)=>{
             if(!valid) return;
         
             let that=this;
+            console.log(that.userInfo.dynamicTags);
             let postData = this.$qs.stringify({
                 userName: that.userInfo.userName,
                 phone: that.userInfo.phone,
@@ -226,9 +225,10 @@ export default {
                 method: 'post',
                 url: '/user/updateInfo',
                 
+                
                 data:postData,
                 headers: {
-                    "token":that.$store.state.token
+                    "token":this.$store.state.token
                 },
             }).then(function (resp) {
                     console.log(resp.data)
@@ -253,7 +253,7 @@ export default {
             })
         },
         handleClose(tag) {
-            this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+            this.userInfo.dynamicTags.splice(this.userInfo.dynamicTags.indexOf(tag), 1);
         },
 
         showInput() {
@@ -266,11 +266,11 @@ export default {
         handleInputConfirm() {
             let inputValue = this.inputValue;
             if (inputValue) {
-                this.dynamicTags.push(inputValue);
+                this.userInfo.dynamicTags.push(inputValue);
             }
             this.inputVisible = false;
             this.inputValue = '';
-            console.log(this.dynamicTags);
+            console.log(this.userInfo.dynamicTags);
         },
 
 
@@ -288,9 +288,10 @@ export default {
                 
                 data:postData,
                 headers: {
-                    "token":that.$store.state.token
+                    "token":this.$store.state.token
                 },
             }).then((resp)=>{
+                console.log(resp.data.userState);
                     if(resp.data.userState) {
                     that.userInfo=resp.data;
                     }

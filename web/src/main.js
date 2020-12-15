@@ -10,7 +10,7 @@ Vue.config.productionTip = false
 import './assets/icon/iconfont.css'
 import Axios from 'axios'
 // import store from './store'
-Axios.defaults.baseURL='https://www.fastmock.site/mock/b07d1d1630880597e9844bfed33c61fc/SEP'
+Axios.defaults.baseURL='http://127.0.0.1:8899'
 // Vue.prototype.$http = axios
 
 

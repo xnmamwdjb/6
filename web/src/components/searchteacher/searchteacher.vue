@@ -34,10 +34,10 @@
                     <el-card :body-style="{ padding: '5px'}" shadow="hover">                    
                         <img src="../../assets/pic/teacher/womanTeacher2.jpg" class="image">                    
                         <div>                    
-                            <span>{{item.teacherName}}</span><br>                    
+                            <span>{{item.userName}}</span><br>                    
                             <div class="bottom clearfix">                    
                                 <span class="tag">
-                                    <el-tag type="warning" v-for="(tag) in item.type" :key="tag">
+                                    <el-tag type="warning" v-for="(tag) in item.tags" :key="tag">
                                         {{tag}}
                                     </el-tag>
                                 </span>                    
@@ -106,9 +106,10 @@ export default {
                 //    userid:that.$store.state.userInfo
                 //}
                 }).then((resp)=>{
-                    that.listdata=resp.data;
-                    this.$set(this.$data,'tabledata',resp.data);
-                    console.log(resp);
+                    // that.listdata=resp.data.array;
+                    // this.$set(this.$data,'tabledata',resp.data.array);
+                    this.tabledata=resp.data.array
+                    console.log(resp.data.array);
                 }).catch((resp)=>{
                     console.log(resp);
                 })
